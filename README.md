@@ -16,4 +16,13 @@ Proyecto integrador de DSI406 · Tecnología Backend (Laravel + PostgreSQL).
 7. php artisan migrate
 8. php artisan serve
 
+## Datos de prueba
+Comando: php artisan migrate:fresh --seed
+
+| Usuario              | Rol             | Contraseña |
+|----------------------|-----------------|------------|
+| admin@posta.test     | administrador   | password   |
+| medico@posta.test    | personal_medico | password   |
+| recepcion@posta.test | recepcion       | password   |
+
 Autor: Vanessa Emma Venero La Rosa
