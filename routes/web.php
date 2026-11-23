@@ -1,7 +1,10 @@
-<?php 
+<?php
 
-use Illuminate\Support\Facades\Route; 
+use App\Http\Controllers\PacienteController;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () { 
+Route::get('/', function () {
     return view('inicio');
 })->name('inicio');
+
+Route::resource('pacientes', PacienteController::class);
