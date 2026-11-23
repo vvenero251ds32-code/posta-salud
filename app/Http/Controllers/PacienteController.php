@@ -7,6 +7,7 @@ use App\Http\Requests\StorePacienteRequest;
 use App\Http\Requests\UpdatePacienteRequest;
 use Illuminate\Http\Request;
 
+
 class PacienteController extends Controller
 {
     /**
@@ -32,19 +33,23 @@ class PacienteController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePacienteRequest $request)
+    public function create()
     {
-        //
+        return view('pacientes.create', ['paciente' => new Paciente()]);
     }
 
+    public function store(StorePacienteRequest $request)
+    {
+        Paciente::create($request->validated());
+
+        return redirect()->route('pacientes.index')
+            ->with('ok', 'Paciente registrado correctamente.');
+    }
     /**
      * Display the specified resource.
      */
