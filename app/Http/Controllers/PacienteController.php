@@ -5,15 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Paciente;
 use App\Http\Requests\StorePacienteRequest;
 use App\Http\Requests\UpdatePacienteRequest;
+use Illuminate\Http\Request;
 
 class PacienteController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $buscar = trim($request->input('buscar', ''));
+
+        $pacientes = Paciente::query()
+            ->when($buscar, function ($consulta, $buscar) {
+                $consulta->where('dni', 'like', "$buscar%")
+                         ->orWhere('apellidos', 'ilike', "%$buscar%");
+            })
+            ->orderBy('apellidos')
+            ->orderBy('nombres')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('pacientes.index', compact('pacientes', 'buscar'));
     }
 
     /**
