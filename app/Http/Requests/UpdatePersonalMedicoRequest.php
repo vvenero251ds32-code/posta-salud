@@ -2,28 +2,23 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdatePersonalMedicoRequest extends FormRequest
+class UpdatePersonalMedicoRequest extends StorePersonalMedicoRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $reglas = parent::rules();
+        $id = $this->route('personalMedico');
+
+        $reglas['dni'] = ['required', 'digits:8',
+            Rule::unique('personal_medico', 'dni')->ignore($id)];
+        $reglas['colegiatura'] = ['required', 'digits_between:4,6',
+            Rule::unique('personal_medico', 'colegiatura')->ignore($id)];
+        $reglas['user_id'] = ['nullable',
+            Rule::unique('personal_medico', 'user_id')->ignore($id),
+            Rule::exists('users', 'id')->where('rol', 'personal_medico')];
+
+        return $reglas;
     }
 }
