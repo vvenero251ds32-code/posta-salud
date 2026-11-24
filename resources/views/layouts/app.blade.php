@@ -10,6 +10,9 @@
     .aviso-error { border-left: 6px solid #b3261e; }
     .acciones    { display: flex; gap: 1rem; align-items: center; }
     nav svg { width: 1rem; height: 1rem; }
+
+    .estado-activo   { background: #e6f2ea; color: #2f7d52; }
+    .estado-inactivo { background: #f6e3e3; color: #b3261e; }
 </style>
 </head>
 <body>
