@@ -25,7 +25,7 @@ class PersonalMedicoController extends Controller
             ->when($estado === 'inactivos', fn ($q) => $q->where('activo', false))
             ->when($buscar, function ($q, $buscar) {
                 $q->where(function ($q) use ($buscar) {
-                    $q->where('apellidos', 'ilike', "%$buscar%")
+                    $q->where('apellidos', 'like', "%$buscar%")
                       ->orWhere('dni', 'like', "$buscar%")
                       ->orWhere('colegiatura', 'like', "$buscar%");
                 });
